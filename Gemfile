@@ -30,6 +30,9 @@ gem 'jbuilder', '~> 1.2'
 # adding bootstrap sass gem
 gem 'bootstrap-sass', '~> 3.0.3.0'
 
+# adding ember-rails gem
+gem 'ember-rails'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
