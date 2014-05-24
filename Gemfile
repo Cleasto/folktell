@@ -31,6 +31,9 @@ gem 'bootstrap-sass', '~> 3.0.3.0'
 # adding ember-rails gem
 gem 'ember-rails'
 
+# adding devise
+gem 'devise', '~> 3.2.4'
+
 group :development, :test do
      gem 'sqlite3'
 end

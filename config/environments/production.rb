@@ -77,4 +77,7 @@ Folktell::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # for devise setup heroku
+  config.action_mailer.default_url_options = { host: 'roybeers.herokuapps.com' }
 end
