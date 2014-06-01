@@ -6,20 +6,25 @@
 		<table>
 		  <thead>
 		    <tr>
+		      <th>When</th>
 		      <th>Description</th>
-		      <th></th>
-		      <th></th>
-		      <th></th>
+		      <th>User email</th>
+		      <th>Options</th>
 		    </tr>
 		  </thead>
 
 		  <tbody>
 		    <% @beers.each do |beer| %>
 		      <tr>
+		        <td><%= beer.created_at.strftime("%B %d, %Y") %></td>
 		        <td><%= beer.description %></td>
-		        <td><%= link_to 'Show', beer %></td>
-		        <td><%= link_to 'Edit', edit_beer_path(beer) %></td>
-		        <td><%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+		        <td><%= beer.user.email if beer.user %></td>
+		        <td><%= link_to 'Show', beer %>
+		        	<% if beer.user == current_user %> | 
+		        	<%= link_to 'Edit', edit_beer_path(beer) %> | 
+		            <%= link_to 'Destroy', beer, method: :delete, data: { confirm: 'Are you sure?' } %>
+		            <% end %>
+		        </td>
 		      </tr>
 		    <% end %>
 		  </tbody>
@@ -29,7 +34,9 @@
 	</div>
 
 	<div class="panel-footer">
-		<%= link_to 'New Beer', new_beer_path %>
+		<% if user_signed_in? %>
+			<%= link_to 'New Beer', new_beer_path %>
+		<% end %>
 	</div>
 
 </div>

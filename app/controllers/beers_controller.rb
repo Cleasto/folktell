@@ -1,6 +1,8 @@
 class BeersController < ApplicationController
   before_action :set_beer, only: [:show, :edit, :update, :destroy]
-
+  before_action :correct_user, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
+  
   # GET /beers
   # GET /beers.json
   def index
@@ -14,7 +16,7 @@ class BeersController < ApplicationController
 
   # GET /beers/new
   def new
-    @beer = Beer.new
+    @beer = current_user.beers.build
   end
 
   # GET /beers/1/edit
@@ -24,7 +26,7 @@ class BeersController < ApplicationController
   # POST /beers
   # POST /beers.json
   def create
-    @beer = Beer.new(beer_params)
+    @beer = current_user.beers.build(beer_params)
 
     respond_to do |format|
       if @beer.save
@@ -65,6 +67,11 @@ class BeersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_beer
       @beer = Beer.find(params[:id])
+    end
+
+    def correct_user
+      @beer = current_user.beers.find_by(id: params[:id])
+      redirect_to beers_path, notice: "Not authorized to edit this Beer!" if @beer.nil?
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
